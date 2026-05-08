@@ -3,9 +3,7 @@ FROM nginx:1.25-alpine
 # Add metadata
 LABEL maintainer="your-email@example.com"
 
-# Create non-root user
-RUN addgroup -g 101 -S nginx && \
-    adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx
+# The nginx user and group (UID/GID 101) already exist in the alpine base image.
 
 # Copy application files
 COPY . /usr/share/nginx/html
