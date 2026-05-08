@@ -3,50 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dynamic Travel Experience Engine - A real-time itinerary manager that adapts to weather, traffic, and venue constraints on the fly.">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Dynamic Travel Engine PoC</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
 </head>
 <body>
-    <div class="app-container">
-        <header>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="app-container" role="application" aria-label="Travel Itinerary Engine">
+        <header role="banner">
             <h1>TravelEngine</h1>
             <p>Live Itinerary</p>
         </header>
 
-        <main>
-            <div class="preferences-bar">
-                <span class="badge" id="budget-badge"><i class="fa-solid fa-wallet"></i> Budget: $150</span>
-                <span class="badge"><i class="fa-solid fa-person-walking"></i> Relaxed</span>
-                <span class="badge"><i class="fa-solid fa-utensils"></i> Foodie</span>
+        <main id="main-content" aria-label="Itinerary view">
+            <div class="preferences-bar" role="toolbar" aria-label="User preferences">
+                <span class="badge" id="budget-badge" role="status" aria-live="polite"><i class="fa-solid fa-wallet" aria-hidden="true"></i> Budget: $150</span>
+                <span class="badge"><i class="fa-solid fa-person-walking" aria-hidden="true"></i> Relaxed</span>
+                <span class="badge"><i class="fa-solid fa-utensils" aria-hidden="true"></i> Foodie</span>
             </div>
 
-            <div class="itinerary-container" id="itinerary">
-                <!-- Itinerary Items injected securely by JS -->
+            <div class="itinerary-container" id="itinerary" aria-live="polite" aria-label="Current itinerary">
+                <!-- Itinerary items injected securely by JS using textContent -->
             </div>
         </main>
 
-        <div class="simulator-panel">
-            <h3>Simulator Console</h3>
-            <div class="button-group">
-                <button data-event="rain" class="sim-btn"><i class="fa-solid fa-cloud-showers-heavy"></i> Rain</button>
-                <button data-event="delay" class="sim-btn"><i class="fa-solid fa-plane-slash"></i> Flight Delay</button>
-                <button data-event="venue_full" class="sim-btn"><i class="fa-solid fa-users-slash"></i> Venue Full</button>
-                <button data-event="over_budget" class="sim-btn"><i class="fa-solid fa-money-bill-trend-up"></i> Over Budget</button>
-                <button data-event="traffic" class="sim-btn"><i class="fa-solid fa-car-burst"></i> Traffic Jam</button>
-                <button id="btn-reset" class="sim-btn reset"><i class="fa-solid fa-rotate-left"></i> Reset Simulation</button>
+        <div class="simulator-panel" role="region" aria-label="Event simulator">
+            <h3 id="simulator-heading">Simulator Console</h3>
+            <div class="button-group" role="group" aria-labelledby="simulator-heading">
+                <button id="btn-rain" data-event="rain" class="sim-btn" aria-label="Simulate rain event"><i class="fa-solid fa-cloud-showers-heavy" aria-hidden="true"></i> Rain</button>
+                <button id="btn-delay" data-event="delay" class="sim-btn" aria-label="Simulate flight delay"><i class="fa-solid fa-plane-slash" aria-hidden="true"></i> Flight Delay</button>
+                <button id="btn-venue" data-event="venue_full" class="sim-btn" aria-label="Simulate venue at capacity"><i class="fa-solid fa-users-slash" aria-hidden="true"></i> Venue Full</button>
+                <button id="btn-budget" data-event="over_budget" class="sim-btn" aria-label="Simulate budget overrun"><i class="fa-solid fa-money-bill-trend-up" aria-hidden="true"></i> Over Budget</button>
+                <button id="btn-traffic" data-event="traffic" class="sim-btn" aria-label="Simulate traffic jam"><i class="fa-solid fa-car-burst" aria-hidden="true"></i> Traffic Jam</button>
+                <button id="btn-reset" class="sim-btn reset" aria-label="Reset simulation to initial state"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Reset Simulation</button>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="toast hidden">
-        <div class="toast-icon"><i class="fa-solid fa-bell"></i></div>
+    <div id="toast" class="toast hidden" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-icon"><i class="fa-solid fa-bell" aria-hidden="true"></i></div>
         <div class="toast-content">
             <h4 id="toast-title">Notification</h4>
             <p id="toast-message">Message details here.</p>
         </div>
     </div>
+
+    <!-- Hidden ARIA live region for screen reader announcements -->
+    <div id="aria-live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <noscript>
+        <div style="padding: 2rem; text-align: center; color: #f8fafc;">
+            <h2>JavaScript Required</h2>
+            <p>This application requires JavaScript to function. Please enable JavaScript in your browser settings.</p>
+        </div>
+    </noscript>
 
     <script src="app.js"></script>
 </body>
