@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelEngine - Test Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #0f172a; color: #f8fafc; padding: 30px; }
+        h1 { margin-bottom: 10px; }
+        #summary { font-size: 1.1rem; margin-bottom: 20px; padding: 15px; border-radius: 8px; }
+        #summary.pass { background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; }
+        #summary.fail { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; }
+        .test-result { padding: 10px 15px; margin: 5px 0; border-radius: 6px; font-size: 0.9rem; }
+        .test-result.pass { background: rgba(16, 185, 129, 0.1); border-left: 3px solid #10b981; }
+        .test-result.fail { background: rgba(239, 68, 68, 0.1); border-left: 3px solid #ef4444; }
+    </style>
+</head>
+<body>
+    <h1>TravelEngine Test Suite</h1>
+    <div id="summary"></div>
+    <div id="results"></div>
+
+    <!-- Minimal DOM required by app.js -->
+    <div style="display:none;">
+        <span id="budget-badge"></span>
+        <div id="itinerary"></div>
+        <div id="toast" class="hidden">
+            <h4 id="toast-title"></h4>
+            <p id="toast-message"></p>
+        </div>
+        <div id="aria-live-region"></div>
+        <button id="btn-reset" class="sim-btn reset"></button>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="tests.js"></script>
+</body>
+</html>

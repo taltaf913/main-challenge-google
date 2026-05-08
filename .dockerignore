@@ -4,3 +4,5 @@ Dockerfile
 cloudbuild.yaml
 README.md
 *.md
+tests.js
+tests.html

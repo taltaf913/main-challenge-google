@@ -1,7 +1,10 @@
 FROM nginx:1.25-alpine
 
-# Add metadata
+# OCI Image metadata labels
 LABEL maintainer="your-email@example.com"
+LABEL org.opencontainers.image.title="Dynamic Travel Engine PoC"
+LABEL org.opencontainers.image.description="Real-time itinerary re-routing engine"
+LABEL org.opencontainers.image.source="https://github.com/taltaf913/main-challenge-google"
 
 # Copy application files
 COPY . /usr/share/nginx/html

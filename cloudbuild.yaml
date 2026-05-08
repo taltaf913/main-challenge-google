@@ -26,5 +26,7 @@ steps:
       - '--allow-unauthenticated'
       - '--port=8080'
 
+timeout: '600s'
+
 images:
   - 'gcr.io/$PROJECT_ID/main-challenge-google:$COMMIT_SHA'
