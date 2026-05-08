@@ -8,24 +8,26 @@ LABEL maintainer="your-email@example.com"
 # Copy application files
 COPY . /usr/share/nginx/html
 
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy nginx config template (uses ${PORT} placeholder)
+COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 
-# Set proper permissions
+# Set proper permissions on web files
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
-    chown -R nginx:nginx /var/cache/nginx
+    chown -R nginx:nginx /var/cache/nginx && \
+    chown -R nginx:nginx /etc/nginx/conf.d
 
 # Redirect logs to stdout/stderr
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:${PORT:-80}/ || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:${PORT:-8080}/ || exit 1
 
 # Run as non-root user
 USER nginx
 
-EXPOSE ${PORT:-80}
+EXPOSE 8080
 
-CMD ["sh", "-c", "nginx -g 'daemon off;'"]
+# At startup: substitute $PORT into nginx config, then launch nginx
+CMD ["sh", "-c", "envsubst '$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
